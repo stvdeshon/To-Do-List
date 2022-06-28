@@ -40,7 +40,17 @@ main {
     border: 1px solid black;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
     align-items: center;
     background-color: cadetblue;
+}
+
+#plan-title {
+    margin-top: 20px;
+}
+
+#plan-items {
+    display: flex;
+    flex-direction: column;
 }
