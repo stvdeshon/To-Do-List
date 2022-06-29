@@ -1,6 +1,6 @@
 /*This module is for creating new user projects on the To Do List*/
 
-export default class ToDoList {
+export default class Plan {
     constructor(title){
         this._title = title;
         this._toDoItems = [];

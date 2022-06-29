@@ -1,6 +1,6 @@
 /*This module is for creating new Do Do List items*/
 
-export default class Task {
+export default class PlanItem {
     constructor(title, description, dueDate, priority) {
         this._title = title;
         this._description = description;
@@ -43,7 +43,7 @@ export default class Task {
 
 // Message to myself:
 // So far, I only have getters and setters for the main values of the items however
-// I may have to alter these as the project continues as I have added no serious
+// I may have to alter these as the project continues as I have added no extra
 // functionality to the methods themselves. I also do not yet know how the date
 // and priority mechanisms will ultimately function. I have created no other methods
 // because unlike the projects themselves, the items should have no elements that
