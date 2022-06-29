@@ -14,12 +14,20 @@
     </header>
     <main>
         <div id="sidebar">
+            <br>
                 <button class="side" id="misc">Misc.</button>
                 <button class="side" id="today">Today</button>
                 <br>
                 <h2>Plans</h2>
+                <div id="new-plans">
+                    <div id="plans"></div>
+                    <form class="plan-form" id="aaa">
+                        <input type="text" id="plan-input">
+                        <button id="plan-submit">Submit</button>
+                        <button id="plan-cancel">Cancel</button>
+                    </form>
+                </div> <!-- these should have very similar add/removal functionality -->
                 <button class="side" id="add-plans">+ New</button>
-                <div class="new-plans"></div> <!-- these should have very similar add/removal functionality -->
         </div>
         <div id="plans-panel">
             <h2 id="plan-title">Groceries</h3>
