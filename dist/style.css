@@ -24,10 +24,6 @@ button:hover {
     text-shadow: 0px 0px 0px transparent;
 }
 
-/* input {
-    width: 4.6rem;
-} */
-
 body {
     display: grid;
     grid-template-rows: 1fr 9fr;
@@ -57,6 +53,17 @@ main {
     text-align: center;
 }
 
+#plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.plans-list-items {
+    max-width: 20rem;
+    word-wrap: break-word;
+}
+
 #plans-panel {
     border: 1px solid black;
     width: 100%;
@@ -84,8 +91,7 @@ main {
 
 }
 
-
-.plan-form {
+.plan-form-class {
  visibility: hidden;
 }
 
@@ -93,4 +99,3 @@ main {
     grid-row: 1/2;
     grid-column: span 2;
 }
-
