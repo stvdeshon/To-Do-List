@@ -11,7 +11,7 @@ export default class Plan {
     }
 
     set title(value) {
-        this._title = value
+        this._title = value;
     }
 
     get toDoItems() {
@@ -22,16 +22,7 @@ export default class Plan {
         this.toDoItems.push(item);
     }
 
-    removeToDoItems() {
-        //remove an item from the array
-    }
-}
+    // removeToDoItems() {
 
-// Message to me later as to what I may change in this module:
-// For now, this only sets a title and a list of constituent list items
-// although I may change the addToDoItems parameter to use spread syntax
-// if at some future point it proves necessary. This module has no DOM 
-// methods but I should be able to use the getters and setters in other
-// modules to that effect. There might be a need for an 'is complete'
-// method either in this class or the to do item class to mark
-// individual projects but that all remains to be seen.
+    // }
+}

@@ -1,4 +1,4 @@
-import * as filler from './DOMfunctions'; //this is subject to change
+import * as filler from './DOMfunctions'; 
 
 console.log('I get called from print.js!');
 
