@@ -56,10 +56,10 @@ main {
 #plans-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 25px;
 }
 
-.plans-list-items {
+.dynamic-buttons {
     max-width: 20rem;
     word-wrap: break-word;
 }
@@ -81,6 +81,7 @@ main {
 #plan-items {
     display: flex;
     flex-direction: column;
+    gap: 25px;
 }
 
 .visible {
@@ -91,11 +92,33 @@ main {
 
 }
 
-.plan-form-class {
- visibility: hidden;
-}
-
 #plan-input {
     grid-row: 1/2;
     grid-column: span 2;
 }
+
+
+.item-form-class{
+    grid-template-columns: 80px 80px;
+    grid-template-rows: 20px 50px;
+    gap: 5px;
+}
+
+#item-input {
+    grid-row: 1/2;
+    grid-column: span 2;
+}
+#item-submit {
+    grid-row: 2/3;
+    grid-column: 1/2;
+}
+
+#item-cancel {
+    grid-row: 2/3;
+    grid-column: 2/3;
+}
+
+.invisible {
+ visibility: hidden;
+}
+

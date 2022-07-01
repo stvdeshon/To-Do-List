@@ -21,7 +21,7 @@
                 <h2>Plans</h2>
                 <div id="lower-sidebar">
                     <div id="plans-list"></div>
-                    <form class="plan-form-class" id="plan-form-id">
+                    <form class="plan-form-class invisible" id="plan-form-id">
                         <input type="text" id="plan-input">
                         <button id="plan-submit">Submit</button>
                         <button id="plan-cancel">Cancel</button>
@@ -30,9 +30,15 @@
                 <button class="side" id="add-plans">+ New</button>
         </div>
         <div id="plans-panel">
-            <h2 id="plan-title">Groceries</h3>
+            <h2 id="plan-title"></h3>
             <br>
-            <div id="plan-items">test</div>
+            <div id="plan-items"></div>
+            <form class="item-form-class invisible" id="item-form-id">
+                <input type="text" id="item-input">
+                <button id="item-submit">Submit</button>
+                <button id="item-cancel">Cancel</button>
+            </form>
+            <button id="add-item">New Task</button>
         </div>
     </main>
 </body>
