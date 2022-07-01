@@ -1,8 +1,12 @@
-const planForm = document.querySelector('#plan-form-id');
+export const inputToggle = {
 
-function projectInputToggle() {
-    planForm.classList.remove('plan-form-class');
-    planForm.classList.add('visible');
-} //ideally I can use this on both project and the task inputs both
-
-export {planForm, projectInputToggle}
+    toggleOn: function (toggle) {
+        toggle.classList.add('visible');
+        toggle.classList.remove('invisible')
+    },
+    
+    toggleOff: function (toggle) {
+        toggle.classList.add('invisible');
+        toggle.classList.remove('visible');
+    }
+};

@@ -40,11 +40,3 @@ export default class PlanItem {
         this._dueDate = value;
     }
 }
-
-// Message to myself:
-// So far, I only have getters and setters for the main values of the items however
-// I may have to alter these as the project continues as I have added no extra
-// functionality to the methods themselves. I also do not yet know how the date
-// and priority mechanisms will ultimately function. I have created no other methods
-// because unlike the projects themselves, the items should have no elements that
-// would ever need to be entirely deleted or moved elsewhere.

@@ -10,10 +10,6 @@ export default class Plan {
         return this._title;
     }
 
-    set title(value) {
-        this._title = value;
-    }
-
     get toDoItems() {
         return this._toDoItems;
     }

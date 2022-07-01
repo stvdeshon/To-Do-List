@@ -1,8 +1,8 @@
-export function createButton(index) {
+export function createButton(title) {
     const btn = document.createElement('button');
-    btn.classList.add('plans-list-items');
-    btn.setAttribute('id', index); //originally const formattedTitle = `Title: ${title}`; from the library app
-    btn.textContent = index;
+    btn.classList.add('dynamic-buttons');
+    btn.setAttribute('id', title);
+    btn.textContent = title;
     return btn;
 }
 

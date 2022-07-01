@@ -1,5 +1,3 @@
-import * as filler from './DOMfunctions'; 
+import * as startUp from './DOMfunctions'; 
 
-console.log('I get called from print.js!');
-
-document.addEventListener('DOMContentLoaded', filler);
+document.addEventListener('DOMContentLoaded', startUp);

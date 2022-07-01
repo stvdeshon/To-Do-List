@@ -1,10 +1,8 @@
 import Plan from './to-do-lists';
 import PlanItem from './to-do-items';
-import * as lists from './lists-array.js';
+import * as list from './lists-array.js';
 import * as dynButton from './dynamic-buttons.js';
-import {planForm, projectInputToggle} from './input-toggle.js';
-
-// Add character limit to PlanItem titles
+import {inputToggle} from './input-toggle.js';
 
 // Delete buttons call removal method and deletes from DOM
 
@@ -12,47 +10,73 @@ import {planForm, projectInputToggle} from './input-toggle.js';
 // That object's display will have an 'add item' button that will open a form that submits and creates a new item object
 // The subsequent item button will populate the display and have a few functional buttons to edit the corresponding item object and change the DOM values
 
+//project creation
+const newPlanBtn = document.querySelector('#add-plans'); 
+const planForm = document.querySelector('#plan-form-id');
+newPlanBtn.addEventListener('click', () => {
+    inputToggle.toggleOn(planForm);
+    inputToggle.toggleOff(itemForm);
+    itemInput.value = '';//empties the input value of the other form
+});
 
-const newPlans = document.querySelector('#lower-sidebar'); //will have plan titled buttons appended to it
-
-const newPlanBtn = document.querySelector('#add-plans'); //creates and appends a modal form to title and submit a new plan to sideBarPlans
-
+const plansList = document.querySelector('#plans-list');
 const planInput = document.querySelector('#plan-input');
 const planSubmit = document.querySelector('#plan-submit');
-const planCancel = document.querySelector('#plan-cancel');
-const plansList = document.querySelector('#plans-list');
-
-
 function planSubmitFunc(e) {
     e.preventDefault();
     let newPlan = new Plan(planInput.value);
-    lists.pushPlan(newPlan);
-    console.log(lists.planArray);
+    list.pushPlan(newPlan);
+    console.log(list.planArray);
     plansList.appendChild(dynButton.createButton(newPlan.title));
     planInput.value = ''
-    planForm.classList.remove('visible');
-    planForm.classList.add('plan-form-class');
+    inputToggle.toggleOff(planForm);
 }
+planSubmit.addEventListener('click', planSubmitFunc);
 
+const planCancel = document.querySelector('#plan-cancel');
 function planCancelFunc(e) {
     e.preventDefault();
     planInput.value = '';
-    planForm.classList.remove('visible');
-    planForm.classList.add('plan-form-class');
+    inputToggle.toggleOff(planForm);
+}
+planCancel.addEventListener('click', planCancelFunc);
+
+
+//task creation
+const itemsList = document.querySelector('#plan-items');
+const addItem = document.querySelector('#add-item');
+const itemForm = document.querySelector('#item-form-id');
+addItem.addEventListener('click', () => {
+    inputToggle.toggleOn(itemForm);
+    inputToggle.toggleOff(planForm);
+    planInput.value = ''//empties the input value of the other form
+});
+
+const itemInput = document.querySelector('#item-input');
+const itemSubmit = document.querySelector('#item-submit');
+function itemSubmitFunc(e) {
+    e.preventDefault();
+    let newItem = new PlanItem(itemInput.value);
+    itemsList.appendChild(dynButton.createButton(newItem.title));
+    itemInput.value = ''
+    inputToggle.toggleOff(itemForm);
+}
+itemSubmit.addEventListener('click', itemSubmitFunc);
+
+const itemCancel = document.querySelector('#item-cancel');
+function itemCancelFunc(e) {
+    e.preventDefault();
+    itemInput.value = '';
+    inputToggle.toggleOff(itemForm);
 }
 
-newPlanBtn.addEventListener('click', projectInputToggle);
-planSubmit.addEventListener('click', planSubmitFunc);
-planCancel.addEventListener('click', planCancelFunc);
+itemCancel.addEventListener('click', itemCancelFunc);
+
+
+const planTitle = document.querySelector('#plan-title'); //this is where a project's title will be displayed on the main panel
+
 
 
 //these two are sidebar elements and function similarly to the project buttons that will be appended under sidebarPlans in that they will display to the main panel
 const miscBtn = document.querySelector('#misc');
 const todayBtn = document.querySelector('#today');
-
-
-//the following elements will be the form for adding a new project
-
-
-const planTitle = document.querySelector('#plan-title'); //this is where a project's title will be displayed on the main panel
-const taskList = document.querySelector('#plan-items'); //this div should have task cards with their own functionality appended to it
