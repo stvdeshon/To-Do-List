@@ -65,6 +65,8 @@ main {
 }
 
 #plans-panel {
+    position: relative;
+    padding: 10px;
     border: 1px solid black;
     width: 100%;
     display: flex;
@@ -122,3 +124,10 @@ main {
  visibility: hidden;
 }
 
+#trash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 25px;
+
+}
