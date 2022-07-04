@@ -1,7 +1,6 @@
-export function createButton(title) {
+export function createButton(title, elemClass) {
     const btn = document.createElement('button');
-    btn.classList.add('dynamic-buttons');
-    btn.classList.add(title);
+    btn.classList.add(`${elemClass}`);
     btn.setAttribute('id', title);
     btn.textContent = title;
     return btn;

@@ -30,7 +30,7 @@ function planSubmitFunc(e) {
     e.preventDefault();
     let newPlan = new Plan(planInput.value);
     list.pushPlan(newPlan);
-    plansList.appendChild(dynButton.createButton(newPlan.title));
+    plansList.appendChild(dynButton.createButton(newPlan.title, '.plan-buttons'));
     planInput.value = ''
     inputToggle.toggleOff(planForm);
 }
@@ -103,7 +103,7 @@ const trash = document.querySelector('#trash');
 
 trash.addEventListener('click', () => {
     planTitle.textContent = '';
-    dynButton.btnDel(trash, '.dynamic-buttons');
+    dynButton.btnDel(trash, '.plan-buttons');
     list.arrayDel.del(trash);
     trash.className = '';
 })
