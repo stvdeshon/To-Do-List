@@ -9,7 +9,7 @@ export const arrayDel = {
     del: function (element) {
 
         function splitArray() { 
-            const index = planArray.findIndex(obj => obj.title === element.id);
+            const index = planArray.findIndex(obj => obj.title === element.className);
             return index;
         }
 
