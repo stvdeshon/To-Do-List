@@ -30,7 +30,7 @@ function planSubmitFunc(e) {
     e.preventDefault();
     let newPlan = new Plan(planInput.value);
     list.pushPlan(newPlan);
-    plansList.appendChild(dynButton.createButton(newPlan.title, '.plan-buttons'));
+    plansList.appendChild(dynButton.createButton(newPlan.title, 'plan-buttons'));
     planInput.value = ''
     inputToggle.toggleOff(planForm);
 }
@@ -61,7 +61,7 @@ function itemSubmitFunc(e) {
     e.preventDefault();
     // if(planTitle.textContent === )
     let newItem = new PlanItem(itemInput.value);
-    itemsList.appendChild(dynButton.createButton(newItem.title));
+    itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
     itemInput.value = ''
     inputToggle.toggleOff(itemForm);
 }
@@ -92,18 +92,17 @@ const todayBtn = document.querySelector('#today');
 //plans dom display
 
 plansList.addEventListener('click', function(e) {
-    if(e.target.classList.contains(e.target.id)) {
         planTitle.textContent = e.target.textContent;
         trash.className = e.target.id;
         console.log(list.planArray);
-    }
 })
 
 const trash = document.querySelector('#trash');
-
-trash.addEventListener('click', () => {
+trash.addEventListener('click', (e) => {
     planTitle.textContent = '';
     dynButton.btnDel(trash, '.plan-buttons');
+    const target = e.target;
     list.arrayDel.del(trash);
     trash.className = '';
 })
+
