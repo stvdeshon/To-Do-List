@@ -45,25 +45,69 @@ function planCancelFunc(e) {
 planCancel.addEventListener('click', planCancelFunc);
 
 
-//task creation
+//plans dom display
+const todayBtn = document.querySelector('#today');
+
 const itemsList = document.querySelector('#plan-items');
+
+plansList.addEventListener('click', function(e) {
+
+    planTitle.textContent = e.target.textContent;
+    trash.className = e.target.id;
+    itemsList.innerHTML = '';
+    console.log(list.planArray);
+
+    list.planArray.forEach((obj) => {
+        obj.toDoItems.forEach((item) => {
+            if(obj.title === e.target.textContent) {
+                itemsList.innerHTML = '';
+                for (let i = 0; i< obj.toDoItems.length; i++){
+                itemsList.innerHTML += `<button class=".plan-buttons" id="${obj.toDoItems[i].title}">${obj.toDoItems[i].title}</button>`;
+                }
+            }
+            })
+    })
+})
+
+
+const trash = document.querySelector('#trash');
+trash.addEventListener('click', (e) => {
+planTitle.textContent = '';
+dynButton.btnDel(trash, '.plan-buttons');
+const target = e.target;
+list.arrayDel.del(trash);
+trash.className = '';
+})
+
+
+
+//task creation
+
 const addItem = document.querySelector('#add-item');
 const itemForm = document.querySelector('#item-form-id');
+
+//event listener for the 'New Task' button and the form it brings up
 addItem.addEventListener('click', () => {
     inputToggle.toggleOn(itemForm);
     inputToggle.toggleOff(planForm);
     planInput.value = ''//empties the input value of the other form
 });
 
+
+// event listener for the form's submit button
 const itemInput = document.querySelector('#item-input');
 const itemSubmit = document.querySelector('#item-submit');
 function itemSubmitFunc(e) {
     e.preventDefault();
-    // if(planTitle.textContent === )
-    let newItem = new PlanItem(itemInput.value);
-    itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
-    itemInput.value = ''
-    inputToggle.toggleOff(itemForm);
+    let newItem = new PlanItem(planTitle.textContent, itemInput.value); //planTitle.textcontent is just an argument to match the task with the project of the same name
+    //the following condition matches the DOM title with the task's parent list property
+    if(planTitle.textContent === newItem.parent){
+        console.log(newItem);
+        list.itemToList.addTask(planTitle, newItem);
+        itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        itemInput.value = ''
+        inputToggle.toggleOff(itemForm);
+    }
 }
 itemSubmit.addEventListener('click', itemSubmitFunc);
 
@@ -86,23 +130,3 @@ primaryBtn.addEventListener('click', () => {
     console.log(primary);
     addItem.setAttribute('data-identifier', 'primary');
 });
-
-const todayBtn = document.querySelector('#today');
-
-//plans dom display
-
-plansList.addEventListener('click', function(e) {
-        planTitle.textContent = e.target.textContent;
-        trash.className = e.target.id;
-        console.log(list.planArray);
-})
-
-const trash = document.querySelector('#trash');
-trash.addEventListener('click', (e) => {
-    planTitle.textContent = '';
-    dynButton.btnDel(trash, '.plan-buttons');
-    const target = e.target;
-    list.arrayDel.del(trash);
-    trash.className = '';
-})
-
