@@ -54,6 +54,7 @@ plansList.addEventListener('click', function(e) {
 
     planTitle.textContent = e.target.textContent;
     trash.className = e.target.id;
+    trash.style.display = 'block';
     itemsList.innerHTML = '';
     console.log(list.planArray);
 
@@ -79,6 +80,22 @@ list.arrayDel.del(trash);
 trash.className = '';
 })
 
+const primary = new Plan('Primary');
+const primaryBtn = document.querySelector('#primary');
+
+primaryBtn.addEventListener('click', (e) => {
+    planTitle.textContent = primary.title;
+    trash.style.display = 'none';
+    itemsList.innerHTML = '';
+    console.log(primary);
+    primary.toDoItems.forEach((item) => {
+            itemsList.innerHTML = '';
+            for (let i = 0; i < primary.toDoItems.length; i++){
+            itemsList.innerHTML += `<button class=".plan-buttons" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</button>`;   
+        }
+    })
+});
+
 
 
 //task creation
@@ -101,14 +118,21 @@ function itemSubmitFunc(e) {
     e.preventDefault();
     let newItem = new PlanItem(planTitle.textContent, itemInput.value); //planTitle.textcontent is just an argument to match the task with the project of the same name
     //the following condition matches the DOM title with the task's parent list property
-    if(planTitle.textContent === newItem.parent){
+    if(planTitle.textContent === newItem.parent && planTitle.textContent !== 'Primary'){
         console.log(newItem);
         list.itemToList.addTask(planTitle, newItem);
         itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
+    } else if (planTitle.textContent === 'Primary') {
+        primary.addToDoItems(newItem);
+        itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        itemInput.value = ''
+        inputToggle.toggleOff(itemForm);
+
     }
 }
+
 itemSubmit.addEventListener('click', itemSubmitFunc);
 
 const itemCancel = document.querySelector('#item-cancel');
@@ -119,14 +143,3 @@ function itemCancelFunc(e) {
 }
 
 itemCancel.addEventListener('click', itemCancelFunc);
-
-
-const primary = new Plan('Primary');
-const primaryBtn = document.querySelector('#primary');
-
-primaryBtn.addEventListener('click', () => {
-    // plansPanel.innerHTML = '';
-    planTitle.textContent = primary.title;
-    console.log(primary);
-    addItem.setAttribute('data-identifier', 'primary');
-});
