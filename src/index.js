@@ -1,3 +1,3 @@
-import * as startUp from './DOMfunctions'; 
+import primaryLoad from './DOMfunctions'; 
 
-document.addEventListener('DOMContentLoaded', startUp);
+document.addEventListener('DOMContentLoaded', primaryLoad);

@@ -83,7 +83,7 @@ trash.className = '';
 const primary = new Plan('Primary');
 const primaryBtn = document.querySelector('#primary');
 
-primaryBtn.addEventListener('click', (e) => {
+export default function primaryLoad(e) {
     planTitle.textContent = primary.title;
     trash.style.display = 'none';
     itemsList.innerHTML = '';
@@ -94,7 +94,9 @@ primaryBtn.addEventListener('click', (e) => {
             itemsList.innerHTML += `<button class=".plan-buttons" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</button>`;   
         }
     })
-});
+}
+
+primaryBtn.addEventListener('click', primaryLoad);
 
 
 
@@ -119,14 +121,35 @@ function itemSubmitFunc(e) {
     let newItem = new PlanItem(planTitle.textContent, itemInput.value); //planTitle.textcontent is just an argument to match the task with the project of the same name
     //the following condition matches the DOM title with the task's parent list property
     if(planTitle.textContent === newItem.parent && planTitle.textContent !== 'Primary'){
-        console.log(newItem);
         list.itemToList.addTask(planTitle, newItem);
-        itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        // itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        itemsList.innerHTML += `
+            <div class="item-buttons">
+                <div class="item-buttons-left">
+                    <button class="status">c</button>
+                    <button id="${newItem.title}">${newItem.title}</button>
+                </div>
+                <div class="item-buttons-right">
+                    <input type="date" class="due-date">
+                    <button class="x">x</button>
+                </div>
+            </div>`;
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
     } else if (planTitle.textContent === 'Primary') {
         primary.addToDoItems(newItem);
-        itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        // itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        itemsList.innerHTML += `
+            <div class="item-buttons">
+                <div class="item-buttons-left">
+                    <button class="status">c</button>
+                    <button id="${newItem.title}">${newItem.title}</button>
+                </div>
+                <div class="item-buttons-right">
+                    <input type="date" class="due-date">
+                    <button class="x">x</button>
+                </div>
+            </div>`;
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
 
