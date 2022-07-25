@@ -129,5 +129,24 @@ main {
     top: 0;
     left: 0;
     padding: 25px;
+}
 
+.item-buttons {
+    border-radius: 5px;
+    padding: 5px;
+    width: 40rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-buttons-left {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+}
+
+.item-buttons-right {
+    width: 20%;
+    display: flex;
+    gap: 20px;
 }
