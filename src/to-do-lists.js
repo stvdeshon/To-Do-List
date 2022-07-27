@@ -18,7 +18,13 @@ export default class Plan {
         this.toDoItems.push(item);
     }
 
-    // removeToDoItems() {
+    removeToDoItems(item) {
+        for(let i = 0; i < this.toDoItems.length; i++) {
+            if(item === this.toDoItems[i].title) {
+                this.toDoItems.splice(i, 1);
+            }
+        }
 
-    // }
+    }
+
 }

@@ -44,8 +44,7 @@ function planCancelFunc(e) {
 }
 planCancel.addEventListener('click', planCancelFunc);
 
-
-//plans dom display
+//project dom display
 const todayBtn = document.querySelector('#today');
 
 const itemsList = document.querySelector('#plan-items');
@@ -63,7 +62,16 @@ plansList.addEventListener('click', function(e) {
             if(obj.title === e.target.textContent) {
                 itemsList.innerHTML = '';
                 for (let i = 0; i< obj.toDoItems.length; i++){
-                itemsList.innerHTML += `<button class=".plan-buttons" id="${obj.toDoItems[i].title}">${obj.toDoItems[i].title}</button>`;
+                itemsList.innerHTML += `
+                <div class="item-buttons">
+                    <div class="item-buttons-left">
+                    <p class="item-title" id="${obj.toDoItems[i].title}">${obj.toDoItems[i].title}</p>
+                    </div>
+                    <div class="item-buttons-right">
+                        <input type="date" class="due-date" id="${obj.toDoItems[i].title}">
+                        <button class="x" id="${obj.toDoItems[i].title}">x</button>
+                    </div>
+                </div>`; 
                 }
             }
             })
@@ -91,9 +99,18 @@ export default function primaryLoad(e) {
     primary.toDoItems.forEach((item) => {
             itemsList.innerHTML = '';
             for (let i = 0; i < primary.toDoItems.length; i++){
-            itemsList.innerHTML += `<button class=".plan-buttons" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</button>`;   
-        }
-    })
+            itemsList.innerHTML += `
+                <div class="item-buttons">
+                    <div class="item-buttons-left">
+                    <p class="item-title" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</p>
+                    </div>
+                    <div class="item-buttons-right">
+                        <input type="date" class="due-date" id="${primary.toDoItems[i].title}">
+                        <button class="primary-x" id="${primary.toDoItems[i].title}">x</button>
+                    </div>
+                </div>`; 
+                }  
+        })
 }
 
 primaryBtn.addEventListener('click', primaryLoad);
@@ -126,12 +143,11 @@ function itemSubmitFunc(e) {
         itemsList.innerHTML += `
             <div class="item-buttons">
                 <div class="item-buttons-left">
-                    <button class="status">c</button>
-                    <button id="${newItem.title}">${newItem.title}</button>
+                    <p class="item-title" id="${newItem.title}">${newItem.title}</p>
                 </div>
                 <div class="item-buttons-right">
-                    <input type="date" class="due-date">
-                    <button class="x">x</button>
+                    <input type="date" class="due-date" id="${newItem.title}">
+                    <button class="x" id="${newItem.title}">x</button>
                 </div>
             </div>`;
         itemInput.value = ''
@@ -142,12 +158,11 @@ function itemSubmitFunc(e) {
         itemsList.innerHTML += `
             <div class="item-buttons">
                 <div class="item-buttons-left">
-                    <button class="status">c</button>
-                    <button id="${newItem.title}">${newItem.title}</button>
+                    <p class="item-title" id="${newItem.title}">${newItem.title}</p>
                 </div>
                 <div class="item-buttons-right">
-                    <input type="date" class="due-date">
-                    <button class="x">x</button>
+                    <input type="date" class="due-date" id="${newItem.title}">
+                    <button class="primary-x" id="${newItem.title}">x</button>
                 </div>
             </div>`;
         itemInput.value = ''
@@ -166,3 +181,53 @@ function itemCancelFunc(e) {
 }
 
 itemCancel.addEventListener('click', itemCancelFunc);
+
+
+//item bar functions
+const dueDate = document.querySelectorAll('.due-date');
+
+//task delete button functionality
+itemsList.addEventListener('click', (e) => {
+    if(e.target.className === 'x') {
+        list.planArray.forEach((obj) => {
+            obj.toDoItems.forEach((item) => {
+                if(obj.title === planTitle.textContent) {
+                    obj.removeToDoItems(e.target.id);
+                    itemsList.innerHTML = '';
+                }
+            })
+            for (let i = 0; i< obj.toDoItems.length; i++) {
+            itemsList.innerHTML += `
+            <div class="item-buttons">
+                <div class="item-buttons-left">
+                <p class="item-title" id="${obj.toDoItems[i].title}">${obj.toDoItems[i].title}</p>
+                </div>
+                <div class="item-buttons-right">
+                    <input type="date" class="due-date" id="${obj.toDoItems[i].title}">
+                    <button class="x" id="${obj.toDoItems[i].title}">x</button>
+                </div>
+            </div>`; 
+            }
+        })
+    }
+    if(e.target.className === 'primary-x') {
+        primary.toDoItems.forEach(() => {
+                if(primary.title === planTitle.textContent) {
+                    primary.removeToDoItems(e.target.id);
+                    itemsList.innerHTML = '';
+                }
+            })
+            for (let i = 0; i< primary.toDoItems.length; i++) {
+            itemsList.innerHTML += `
+            <div class="item-buttons">
+                <div class="item-buttons-left">
+                <p class="item-title" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</p>
+                </div>
+                <div class="item-buttons-right">
+                    <input type="date" class="due-date" id="${primary.toDoItems[i].title}">
+                    <button class="primary-x" id="${primary.toDoItems[i].title}">x</button>
+                </div>
+            </div>`; 
+            }
+        }
+})

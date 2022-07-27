@@ -1,12 +1,10 @@
 /*This module is for creating new Do Do List items*/
 
 export default class PlanItem {
-    constructor(parent, title, description, dueDate, priority) {
+    constructor(parent, title, dueDate) {
         this._parent = parent;
         this._title = title;
         this._dueDate = dueDate;
-        this._description = description;
-        this._priority = priority;
     }
 
     get parent() {
@@ -21,22 +19,6 @@ export default class PlanItem {
         this._title = value;
     }
 
-    get description() {
-        return this._description;
-    }
-
-    set description(value) {
-        this._description = value;
-    }
-
-    get priority() {
-        return this._priority;
-    }
-
-    set priority(value) {
-        this._priority = value;
-    }
-
     get dueDate() {
         return this._dueDate;
     }
@@ -44,4 +26,5 @@ export default class PlanItem {
     set dueDate(value) {
         this._dueDate = value;
     }
+
 }

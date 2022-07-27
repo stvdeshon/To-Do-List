@@ -16,3 +16,4 @@ export function btnDel(element, elemClass) {
     });
 }
 
+export const xBtn = document.querySelectorAll('.x');
