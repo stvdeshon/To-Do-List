@@ -137,12 +137,7 @@ main {
     width: 40rem;
     display: flex;
     justify-content: space-between;
-}
-
-.item-buttons-left {
-    display: flex;
-    justify-content: start;
-    gap: 20px;
+    text-align: center;
 }
 
 .item-buttons-right {
