@@ -1,6 +1,9 @@
 /*This module is for creating new user projects on the To Do List*/
 
+import { toDate, isToday } from "date-fns";
+
 export default class Plan {
+    
     constructor(title){
         this._title = title;
         this._toDoItems = [];
@@ -24,7 +27,13 @@ export default class Plan {
                 this.toDoItems.splice(i, 1);
             }
         }
+    }
 
+    itemsToday() {
+        return this._toDoItems.filter((item) => {
+            const itemDueDate = new Date(item.dueDate);
+            return isToday(toDate(itemDueDate));
+        })
     }
 
 }

@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const planArray = [];
 
 export function pushPlan(plan) {
@@ -37,26 +39,23 @@ export const itemToList = {
                 console.log(obj);
             }
         });
-
-    
-
-},
-
-    // displayTasks: function(target) { 
-
-    //     function displayToDom() {
-    //     const index = planArray.findIndex(obj => obj.title === target.textContent);
-    //     return index;
-    //     }
-
-    //     planArray.forEach((obj) => {
-    //         if(obj.title === target.textContent) {
-                
-    //             console.log(obj.toDoItems());
-    //         }
-    //     })
-    // }
+    }
 }
 
+export function plansToday() {
 
+    let today = format(new Date(), 'LLL dd, yyyy');
+    const todayArray = [];
+
+    planArray.forEach((obj) => {
+        obj.toDoItems.forEach((item) => {
+            for (let i = 0; i< obj.toDoItems.length; i++){
+                if(obj.toDoItems[i].dueDate === today && !todayArray.includes(obj.toDoItems[i])) {
+                    todayArray.push(obj.toDoItems[i]);
+                }
+        }
+        })
+    })
+    return todayArray;
+}
 

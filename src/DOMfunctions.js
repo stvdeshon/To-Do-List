@@ -3,6 +3,7 @@ import PlanItem from './to-do-items';
 import * as list from './plans-array.js';
 import * as dynButton from './dynamic-buttons.js';
 import {inputToggle} from './input-toggle.js';
+import { format, getDate } from 'date-fns';
 
 // Delete buttons call removal method and deletes from DOM
 
@@ -45,7 +46,29 @@ function planCancelFunc(e) {
 planCancel.addEventListener('click', planCancelFunc);
 
 //project dom display
+
 const todayBtn = document.querySelector('#today');
+
+todayBtn.addEventListener('click', (e) => {
+    planTitle.textContent = e.target.textContent;
+    trash.style.display = 'none';
+    itemsList.innerHTML = '';
+    const today = list.plansToday();
+    console.log(list.plansToday());
+
+        for(let i = 0; i < today.length; i++) {
+        itemsList.innerHTML += `
+                <div class="item-buttons">
+                    <div class="item-buttons-left">
+                    <p class="item-title" id="${today[i].title}">${today[i].title}</p>
+                    </div>
+                    <div class="item-buttons-right">
+                        <p id="${today[i].title}">${today[i].dueDate}</p>
+                    </div>
+                </div>`; 
+        }
+
+})
 
 const itemsList = document.querySelector('#plan-items');
 
@@ -68,7 +91,7 @@ plansList.addEventListener('click', function(e) {
                     <p class="item-title" id="${obj.toDoItems[i].title}">${obj.toDoItems[i].title}</p>
                     </div>
                     <div class="item-buttons-right">
-                        <input type="date" class="due-date" id="${obj.toDoItems[i].title}">
+                        <p id="${obj.toDoItems[i].title}">${obj.toDoItems[i].dueDate}</p>
                         <button class="x" id="${obj.toDoItems[i].title}">x</button>
                     </div>
                 </div>`; 
@@ -105,7 +128,7 @@ export default function primaryLoad(e) {
                     <p class="item-title" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</p>
                     </div>
                     <div class="item-buttons-right">
-                        <input type="date" class="due-date" id="${primary.toDoItems[i].title}">
+                        <p id="${primary.toDoItems[i].title}">${primary.toDoItems[i].dueDate}</p>
                         <button class="primary-x" id="${primary.toDoItems[i].title}">x</button>
                     </div>
                 </div>`; 
@@ -130,12 +153,14 @@ addItem.addEventListener('click', () => {
 });
 
 
-// event listener for the form's submit button
+// event listener for task submission
 const itemInput = document.querySelector('#item-input');
 const itemSubmit = document.querySelector('#item-submit');
+const dateSubmit = document.querySelector('#date-submit');
 function itemSubmitFunc(e) {
     e.preventDefault();
-    let newItem = new PlanItem(planTitle.textContent, itemInput.value); //planTitle.textcontent is just an argument to match the task with the project of the same name
+    if (dateSubmit.value === '') {dateSubmit.value = 'No Date'};
+    let newItem = new PlanItem(planTitle.textContent, itemInput.value, dateSubmit.value); //planTitle.textcontent is just an argument to match the task with the project of the same name
     //the following condition matches the DOM title with the task's parent list property
     if(planTitle.textContent === newItem.parent && planTitle.textContent !== 'Primary'){
         list.itemToList.addTask(planTitle, newItem);
@@ -146,7 +171,7 @@ function itemSubmitFunc(e) {
                     <p class="item-title" id="${newItem.title}">${newItem.title}</p>
                 </div>
                 <div class="item-buttons-right">
-                    <input type="date" class="due-date" id="${newItem.title}">
+                    <p id="${newItem.title}">${newItem.dueDate}</p>
                     <button class="x" id="${newItem.title}">x</button>
                 </div>
             </div>`;
@@ -161,14 +186,14 @@ function itemSubmitFunc(e) {
                     <p class="item-title" id="${newItem.title}">${newItem.title}</p>
                 </div>
                 <div class="item-buttons-right">
-                    <input type="date" class="due-date" id="${newItem.title}">
+                    <p id="${newItem.title}">${newItem.dueDate}</p>
                     <button class="primary-x" id="${newItem.title}">x</button>
                 </div>
             </div>`;
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
-
     }
+    dateSubmit.value = '';
 }
 
 itemSubmit.addEventListener('click', itemSubmitFunc);
@@ -182,9 +207,6 @@ function itemCancelFunc(e) {
 
 itemCancel.addEventListener('click', itemCancelFunc);
 
-
-//item bar functions
-const dueDate = document.querySelectorAll('.due-date');
 
 //task delete button functionality
 itemsList.addEventListener('click', (e) => {
@@ -203,7 +225,7 @@ itemsList.addEventListener('click', (e) => {
                 <p class="item-title" id="${obj.toDoItems[i].title}">${obj.toDoItems[i].title}</p>
                 </div>
                 <div class="item-buttons-right">
-                    <input type="date" class="due-date" id="${obj.toDoItems[i].title}">
+                    <p id="${obj.toDoItems[i].title}">${obj.toDoItems[i].dueDate}</p>
                     <button class="x" id="${obj.toDoItems[i].title}">x</button>
                 </div>
             </div>`; 
@@ -224,7 +246,7 @@ itemsList.addEventListener('click', (e) => {
                 <p class="item-title" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</p>
                 </div>
                 <div class="item-buttons-right">
-                    <input type="date" class="due-date" id="${primary.toDoItems[i].title}">
+                    <p id="${primary.toDoItems[i].title}">${primary.toDoItems[i].dueDate}</p>
                     <button class="primary-x" id="${primary.toDoItems[i].title}">x</button>
                 </div>
             </div>`; 
