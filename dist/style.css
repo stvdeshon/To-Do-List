@@ -99,10 +99,9 @@ main {
     grid-column: span 2;
 }
 
-
 .item-form-class{
     grid-template-columns: 80px 80px;
-    grid-template-rows: 20px 50px;
+    grid-template-rows: 20px 30px 50px;
     gap: 5px;
 }
 
@@ -110,13 +109,21 @@ main {
     grid-row: 1/2;
     grid-column: span 2;
 }
-#item-submit {
+
+#date-submit {
+    background: none;
+    border: none;
     grid-row: 2/3;
+    grid-column: 1/3;
+}
+
+#item-submit {
+    grid-row: 3/4;
     grid-column: 1/2;
 }
 
 #item-cancel {
-    grid-row: 2/3;
+    grid-row: 3/4;
     grid-column: 2/3;
 }
 
@@ -145,3 +152,19 @@ main {
     display: flex;
     gap: 20px;
 }
+
+/* .due-date-input {
+    display: none;
+}
+
+.due-date-input.open {
+    display: block;
+}
+
+.date {
+    cursor: pointer;
+}
+
+.date.hidden {
+    display: none;
+} */
