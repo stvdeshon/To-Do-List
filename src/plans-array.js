@@ -1,6 +1,9 @@
 import { format } from "date-fns";
+import Plan from './to-do-lists';
 
-export const planArray = [];
+const primaryPlan = new Plan('Primary');
+
+export const planArray = [primaryPlan];
 
 export function pushPlan(plan) {
     planArray.push(plan)

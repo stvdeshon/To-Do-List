@@ -2,8 +2,8 @@ import Plan from './to-do-lists';
 import PlanItem from './to-do-items';
 import * as list from './plans-array.js';
 import * as dynButton from './dynamic-buttons.js';
-import {inputToggle} from './input-toggle.js';
-import { format, getDate } from 'date-fns';
+import { inputToggle } from './input-toggle.js';
+import { storePlans } from './local-storage.js';
 
 // Delete buttons call removal method and deletes from DOM
 
@@ -11,8 +11,6 @@ import { format, getDate } from 'date-fns';
 // That object's display will have an 'add item' button that will open a form that submits and creates a new item object
 // The subsequent item button will populate the display and have a few functional buttons to edit the corresponding item object and change the DOM values
 
-
-const plansPanel = document.querySelector('#plans-panel');
 const planTitle = document.querySelector('#plan-title');
 
 //project creation
@@ -34,6 +32,7 @@ function planSubmitFunc(e) {
     plansList.appendChild(dynButton.createButton(newPlan.title, 'plan-buttons'));
     planInput.value = ''
     inputToggle.toggleOff(planForm);
+    storePlans();
 }
 planSubmit.addEventListener('click', planSubmitFunc);
 
@@ -52,6 +51,7 @@ const todayBtn = document.querySelector('#today');
 todayBtn.addEventListener('click', (e) => {
     planTitle.textContent = e.target.textContent;
     trash.style.display = 'none';
+    addItem.style.display = 'none';
     itemsList.innerHTML = '';
     const today = list.plansToday();
     console.log(list.plansToday());
@@ -77,6 +77,7 @@ plansList.addEventListener('click', function(e) {
     planTitle.textContent = e.target.textContent;
     trash.className = e.target.id;
     trash.style.display = 'block';
+    addItem.style.display = 'block';
     itemsList.innerHTML = '';
     console.log(list.planArray);
 
@@ -97,48 +98,49 @@ plansList.addEventListener('click', function(e) {
                 </div>`; 
                 }
             }
-            })
+        })
     })
 })
 
-
-const trash = document.querySelector('#trash');
-trash.addEventListener('click', (e) => {
-planTitle.textContent = '';
-dynButton.btnDel(trash, '.plan-buttons');
-const target = e.target;
-list.arrayDel.del(trash);
-trash.className = '';
-})
-
-const primary = new Plan('Primary');
 const primaryBtn = document.querySelector('#primary');
 
-export default function primaryLoad(e) {
-    planTitle.textContent = primary.title;
+export function primaryLoad(e) {
+    planTitle.textContent = 'Primary';
     trash.style.display = 'none';
+    addItem.style.display = 'block';
     itemsList.innerHTML = '';
-    console.log(primary);
+    const primary = list.planArray[0];
+    console.log(list.planArray[0]);
+    
     primary.toDoItems.forEach((item) => {
-            itemsList.innerHTML = '';
-            for (let i = 0; i < primary.toDoItems.length; i++){
-            itemsList.innerHTML += `
-                <div class="item-buttons">
-                    <div class="item-buttons-left">
-                    <p class="item-title" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</p>
-                    </div>
-                    <div class="item-buttons-right">
-                        <p id="${primary.toDoItems[i].title}">${primary.toDoItems[i].dueDate}</p>
-                        <button class="primary-x" id="${primary.toDoItems[i].title}">x</button>
-                    </div>
-                </div>`; 
-                }  
-        })
+        itemsList.innerHTML = '';
+        for (let i = 0; i < primary.toDoItems.length; i++){
+        itemsList.innerHTML += `
+            <div class="item-buttons">
+                <div class="item-buttons-left">
+                <p class="item-title" id="${primary.toDoItems[i].title}">${primary.toDoItems[i].title}</p>
+                </div>
+                <div class="item-buttons-right">
+                    <p id="${primary.toDoItems[i].title}">${primary.toDoItems[i].dueDate}</p>
+                    <button class="primary-x" id="${primary.toDoItems[i].title}">x</button>
+                </div>
+            </div>`; 
+        }  
+    })
 }
 
 primaryBtn.addEventListener('click', primaryLoad);
 
 
+const trash = document.querySelector('#trash');
+trash.addEventListener('click', (e) => {
+    planTitle.textContent = '';
+    dynButton.btnDel(trash, '.plan-buttons');
+    const target = e.target;
+    list.arrayDel.del(trash);
+    storePlans();
+    trash.className = '';
+})
 
 //task creation
 
@@ -164,7 +166,6 @@ function itemSubmitFunc(e) {
     //the following condition matches the DOM title with the task's parent list property
     if(planTitle.textContent === newItem.parent && planTitle.textContent !== 'Primary'){
         list.itemToList.addTask(planTitle, newItem);
-        // itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
         itemsList.innerHTML += `
             <div class="item-buttons">
                 <div class="item-buttons-left">
@@ -178,8 +179,7 @@ function itemSubmitFunc(e) {
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
     } else if (planTitle.textContent === 'Primary') {
-        primary.addToDoItems(newItem);
-        // itemsList.appendChild(dynButton.createButton(newItem.title, 'item-buttons'));
+        list.itemToList.addTask(planTitle, newItem);
         itemsList.innerHTML += `
             <div class="item-buttons">
                 <div class="item-buttons-left">
@@ -193,6 +193,7 @@ function itemSubmitFunc(e) {
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
     }
+    storePlans();
     dateSubmit.value = '';
 }
 
@@ -210,6 +211,7 @@ itemCancel.addEventListener('click', itemCancelFunc);
 
 //task delete button functionality
 itemsList.addEventListener('click', (e) => {
+    const primary = list.planArray[0];
     if(e.target.className === 'x') {
         list.planArray.forEach((obj) => {
             obj.toDoItems.forEach((item) => {
@@ -252,4 +254,5 @@ itemsList.addEventListener('click', (e) => {
             </div>`; 
             }
         }
+    storePlans();
 })
