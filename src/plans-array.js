@@ -3,7 +3,7 @@ import Plan from './to-do-lists';
 
 const primaryPlan = new Plan('Primary');
 
-export const planArray = [primaryPlan];
+export let planArray = [primaryPlan];
 
 export function pushPlan(plan) {
     planArray.push(plan)

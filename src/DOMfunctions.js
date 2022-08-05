@@ -3,7 +3,7 @@ import PlanItem from './to-do-items';
 import * as list from './plans-array.js';
 import * as dynButton from './dynamic-buttons.js';
 import { inputToggle } from './input-toggle.js';
-import { storePlans } from './local-storage.js';
+import { storePlans, extractPlans } from './local-storage.js';
 
 // Delete buttons call removal method and deletes from DOM
 
@@ -35,6 +35,15 @@ function planSubmitFunc(e) {
     storePlans();
 }
 planSubmit.addEventListener('click', planSubmitFunc);
+
+export function planLoad() {
+    for(let i = 0; i < list.planArray.length; i++) {
+        if (list.planArray[i].title !== 'Primary') {
+            plansList.appendChild(dynButton.createButton(list.planArray[i].title, 'plan-buttons'));
+        }
+    }
+}
+
 
 const planCancel = document.querySelector('#plan-cancel');
 function planCancelFunc(e) {
@@ -164,21 +173,7 @@ function itemSubmitFunc(e) {
     if (dateSubmit.value === '') {dateSubmit.value = 'No Date'};
     let newItem = new PlanItem(planTitle.textContent, itemInput.value, dateSubmit.value); //planTitle.textcontent is just an argument to match the task with the project of the same name
     //the following condition matches the DOM title with the task's parent list property
-    if(planTitle.textContent === newItem.parent && planTitle.textContent !== 'Primary'){
-        list.itemToList.addTask(planTitle, newItem);
-        itemsList.innerHTML += `
-            <div class="item-buttons">
-                <div class="item-buttons-left">
-                    <p class="item-title" id="${newItem.title}">${newItem.title}</p>
-                </div>
-                <div class="item-buttons-right">
-                    <p id="${newItem.title}">${newItem.dueDate}</p>
-                    <button class="x" id="${newItem.title}">x</button>
-                </div>
-            </div>`;
-        itemInput.value = ''
-        inputToggle.toggleOff(itemForm);
-    } else if (planTitle.textContent === 'Primary') {
+    if (planTitle.textContent === 'Primary') {
         list.itemToList.addTask(planTitle, newItem);
         itemsList.innerHTML += `
             <div class="item-buttons">
@@ -192,7 +187,21 @@ function itemSubmitFunc(e) {
             </div>`;
         itemInput.value = ''
         inputToggle.toggleOff(itemForm);
-    }
+    } else if(planTitle.textContent === newItem.parent && planTitle.textContent !== 'Primary'){
+        list.itemToList.addTask(planTitle, newItem);
+        itemsList.innerHTML += `
+            <div class="item-buttons">
+                <div class="item-buttons-left">
+                    <p class="item-title" id="${newItem.title}">${newItem.title}</p>
+                </div>
+                <div class="item-buttons-right">
+                    <p id="${newItem.title}">${newItem.dueDate}</p>
+                    <button class="x" id="${newItem.title}">x</button>
+                </div>
+            </div>`;
+        itemInput.value = ''
+        inputToggle.toggleOff(itemForm);
+    } 
     storePlans();
     dateSubmit.value = '';
 }
