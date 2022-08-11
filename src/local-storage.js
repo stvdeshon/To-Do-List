@@ -7,38 +7,21 @@ export function storePlans() {
 }
 
 export function extractPlans() {
-    const widget = JSON.parse(localStorage.getItem('plans'));
+    const plans = JSON.parse(localStorage.getItem('plans'));
     list.planArray = [];
-    console.log(widget)
-    // console.log(typeof widget);
+    console.log(plans)
 
-    widget.forEach((obj) => {
+    plans.forEach((obj) => {
         const reinstPlan = new Plan(obj._title);
+
         list.planArray.push(reinstPlan);
-        // console.log(list.planArray);
+
         for (let i = 0; i < obj._toDoItems.length; i++) {
+            const reinstItem = new PlanItem(obj._title, obj._toDoItems[i]._title, obj._toDoItems[i]._dueDate);
 
-
-                let reinstItem = new PlanItem(obj._title, obj._toDoItems[i]._title, obj._toDoItems[i]._dueDate);
-                if(reinstPlan.title === reinstItem.parent){
-
-                list.planArray.forEach((pl) => {
-                    pl.toDoItems.push(reinstItem);  
-                })
-            
-
-        
+            if(reinstPlan._title === reinstItem._parent) {
+                    reinstPlan.toDoItems.push(reinstItem);  
             }
         }
-       })
-       console.log(list.planArray);
+    })
 }
-
-
-// new Plan('title');
-// new PlanItem('parent', 'title', 'dueDate');
-// push newplans to planarray, push new planitems to parent plan
-// JSON.parse(localStorage.getItem('plans'));
-// && planTitle.textContent !== 'Primary'
-
-        //  console.log(obj._toDoItems[i]._title);

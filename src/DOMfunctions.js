@@ -5,11 +5,6 @@ import * as dynButton from './dynamic-buttons.js';
 import { inputToggle } from './input-toggle.js';
 import { storePlans, extractPlans } from './local-storage.js';
 
-// Delete buttons call removal method and deletes from DOM
-
-// The newly created 'plan' buttons on the sidebar will populate the display with the corresponding object's data 
-// That object's display will have an 'add item' button that will open a form that submits and creates a new item object
-// The subsequent item button will populate the display and have a few functional buttons to edit the corresponding item object and change the DOM values
 
 const planTitle = document.querySelector('#plan-title');
 
@@ -88,7 +83,6 @@ plansList.addEventListener('click', function(e) {
     trash.style.display = 'block';
     addItem.style.display = 'block';
     itemsList.innerHTML = '';
-    console.log(list.planArray);
 
     list.planArray.forEach((obj) => {
         obj.toDoItems.forEach((item) => {
@@ -119,7 +113,6 @@ export function primaryLoad(e) {
     addItem.style.display = 'block';
     itemsList.innerHTML = '';
     const primary = list.planArray[0];
-    console.log(list.planArray[0]);
     
     primary.toDoItems.forEach((item) => {
         itemsList.innerHTML = '';
