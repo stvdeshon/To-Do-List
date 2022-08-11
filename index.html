@@ -9,6 +9,39 @@
     <title>To Do List</title>
 </head>
 <body>
-    
+    <header>
+        <h1>Planner</h1>
+    </header>
+    <main>
+        <div id="sidebar">
+            <br>
+                <button class="side" id="primary">Primary</button>
+                <button class="side" id="today">Today</button>
+                <br>
+                <h2>Plans</h2>
+                <div id="lower-sidebar">
+                    <div id="plans-list"></div>
+                    <form class="plan-form-class invisible" id="plan-form-id">
+                        <input type="text" id="plan-input" maxlength="12">
+                        <button id="plan-submit">Submit</button>
+                        <button id="plan-cancel">Cancel</button>
+                    </form>
+                </div> 
+                <button class="side" id="add-plans">+ New</button>
+        </div>
+        <div id="plans-panel">
+            <h2 id="plan-title"></h3>
+            <br>
+            <div id="plan-items"></div>
+            <form class="item-form-class invisible" id="item-form-id">
+                <input type="text" id="item-input" maxlength="28">
+                <button id="item-submit">Submit</button>
+                <input type="date" id="date-submit">
+                <button id="item-cancel">Cancel</button>
+            </form>
+            <button id="add-item">New Task</button>
+            <button id="trash">Trash</button>
+        </div>
+    </main>
 </body>
 </html>
