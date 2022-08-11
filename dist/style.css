@@ -152,19 +152,3 @@ main {
     display: flex;
     gap: 20px;
 }
-
-/* .due-date-input {
-    display: none;
-}
-
-.due-date-input.open {
-    display: block;
-}
-
-.date {
-    cursor: pointer;
-}
-
-.date.hidden {
-    display: none;
-} */
